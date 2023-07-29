@@ -1,0 +1,21 @@
+{% extends 'payapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Transfer
+{% endblock %}
+<!-- Make payments to another user -->
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Transfer</h1>
+        <form method="post" class="form-group">
+            {% csrf_token %}
+            {{ payment_form|crispy }}
+            <button type="submit" class="btn btn-success">Transfer</button>
+        </form>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+{% endblock %}

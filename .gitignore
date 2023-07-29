@@ -1,0 +1,10 @@
+.idea
+.venv
+db.webapps
+webapps2023.iml
+localhost.*
+Report.*
+notes.txt
+*\__pycache__\
+*\migrations\
+

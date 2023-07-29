@@ -1,0 +1,43 @@
+
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Transactions
+{% endblock %}
+<!-- Display transactions for user and all transactions for admin -->
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Transactions</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
+                    <th>Amount</th>
+                    <th>Direction</th>
+                    <th>User</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        {% if user.is_superuser %}
+                            <td>{{ transaction.user }}</td>
+                        {% endif %}
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.direction }}</td>
+                        <td>{{ transaction.other_user }}</td>
+                        <td>{{ transaction.time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+
+{% endblock %}

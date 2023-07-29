@@ -1,0 +1,45 @@
+
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <!-- Display balance for user and all balances for admin -->
+        <h1>Home</h1>
+        {% if user.is_superuser %}
+            <h2>Balances</h2>
+        {% else %}
+            <h2>Balance</h2>
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
+                    <th>Currency</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for balance in balances %}
+                <tr>
+                    {% if user.is_superuser %}
+                        <td>{{ balance.user }}</td>
+                    {% endif %}
+                    <td>{{ balance.currency }}</td>
+                    <td>{{ balance.balance }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+
+{% endblock %}

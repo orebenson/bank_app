@@ -1,0 +1,44 @@
+
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Requests
+{% endblock %}
+<!-- Display requests for user and all requests for admin -->
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Requests</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
+                    <th>Amount</th>
+                    <th>Requested From</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for request in requests %}
+                <tr>
+                    {% if user.is_superuser %}
+                        <td>{{ request.user }}</td>
+                    {% endif %}
+                    <td>{{ request.amount }}</td>
+                    <td>{{ request.other_user }}</td>
+                    {% if not user.is_superuser %}
+                        <!-- accept / reject a request, sending request id to route -->
+                        <td><a class="text-decoration-none" href="reject/{{ request.id }}">Reject</a></td>
+                        <td><a class="text-decoration-none" href="accept/{{ request.id }}">Accept</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+
+{% endblock %}
