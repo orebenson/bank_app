@@ -5,6 +5,6 @@ webapps2023.iml
 localhost.*
 Report.*
 notes.txt
-*\__pycache__\
-*\migrations\
+/__pycache__
+/migrations
 
